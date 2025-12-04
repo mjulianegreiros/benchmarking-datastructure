@@ -26,9 +26,24 @@ Arv* criar_arv(){
     return arv;
 }
 
-Arv* inserir(Arv *a, int chave){
-    No *aux = a->raiz;
-    if(aux == NULL){
+void inserir(Arv *a, int chave){
+    a->raiz = inserir_no(a->raiz, chave);
+    a->altura = altura_no(a->raiz);
+
+    printf("Valor %d inserido com sucesso!\n", chave);
+    printf("Altura: %d\n\n", a->altura);
+}
+
+void remover(Arv *a, int chave){
+    a->raiz = remover_no(a->raiz, chave);
+    a->altura = altura_no(a->raiz);
+
+    printf("Valor %d removido com sucesso!\n", chave);
+    printf("Altura da arvore: %d\n\n", a->altura);
+}
+
+No* inserir_no(No *raiz, int chave){
+    if(raiz == NULL){
         No *no = (No*) malloc(sizeof(No));
         if(no != NULL){
             no->chave = chave;
@@ -38,68 +53,104 @@ Arv* inserir(Arv *a, int chave){
         }return NULL;
     }
 
-    if(chave < aux->chave){
-        aux->esq = inserir(aux->esq, chave);
-    }else if(chave > aux->chave){
-        aux->dir = inserir(aux->dir, chave);
-    }else{
-        printf("Valor ja existe na arvore!\n");
+    if(chave < raiz->chave){
+        raiz->esq = inserir_no(raiz->esq, chave);
+    }else if(chave > raiz->chave){
+        raiz->dir = inserir_no(raiz->dir, chave);
     }
 
-    return aux;
+    altura_no(raiz);
+    return raiz;
 }
 
-void buscar(No *raiz, int chave){
+No* remover_no(No *raiz, int chave){
     if(raiz == NULL){
         printf("Arvore vazia!\n");
-        return;
+        return NULL;
     }
 
     if(chave > raiz->chave){
-        buscar(raiz->dir, chave);
+        raiz->dir = remover_no(raiz->dir, chave);
     }else if(chave < raiz->chave){
-        buscar(raiz->esq, chave);
+        raiz->esq = remover_no(raiz->esq, chave);
     }else{
-        print("%d encontrado na posicao %p!\n", chave, raiz);
-    }
-}
-
-No* remover(Arv *a, int chave){
-    No *aux = a->raiz;
-    if(aux == NULL){
-        printf("Arvore vazia!\n");
-        return;
-    }
-
-    if(chave > aux->chave){
-        aux->dir = remover(aux->dir, chave);
-    }else if(chave < aux->chave){
-        aux->esq = remover(aux->esq, chave);
-    }else{
-        if(aux->esq == NULL && aux->dir == NULL){
-            free(aux);
-            printf("Valor removido\n!");
+        if(raiz->esq == NULL && raiz->dir == NULL){
+            free(raiz);
             return NULL;
         }
 
-        else if(aux->esq == NULL){
-            No *temp = aux->dir;
-            free(aux);
+        else if(raiz->esq == NULL){
+            No *temp = raiz->dir;
+            free(raiz);
             return temp;
-        }else if(aux->dir == NULL){
-            No *temp = aux->esq;
-            free(aux);
+        }else if(raiz->dir == NULL){
+            No *temp = raiz->esq;
+            free(raiz);
             return temp;
         }
 
         else{
-
+            No *sucessor = menor_dir(raiz->dir);
+            raiz->chave = sucessor->chave;
+            raiz->dir = remover_no(raiz->dir, sucessor->chave); 
         }
     }
+    altura_no(raiz);
+    return raiz;
 }
 
 No* menor_dir(No *raiz){
     while(raiz->esq != NULL){
-        
+        raiz = raiz->esq;
     }
+    return raiz;
+}
+
+void buscar(Arv *a, int chave){
+    buscar_arv(a->raiz, chave);
+}
+
+void buscar_arv(No *raiz, int chave){
+    if(raiz == NULL){
+        printf("Valor %d nao encontrado na arvore!\n", chave);
+        return;
+    }
+
+    if(chave > raiz->chave){
+        buscar_arv(raiz->dir, chave);
+    }else if(chave < raiz->chave){
+        buscar_arv(raiz->esq, chave);
+    }else{
+        printf("%d encontrado na posicao %p!\n", chave, raiz);
+    }
+}
+
+int altura_no(No *raiz){
+    if(raiz == NULL){
+        return 0;
+    }
+
+    int alt_esq = altura_no(raiz->esq);
+    int alt_dir = altura_no(raiz->dir);
+
+    return 1 + (alt_esq > alt_dir ? alt_esq : alt_dir);
+}
+
+void imprimir(Arv *a){
+    if(a == NULL){
+        printf("Arvore vazia!\n");
+    }else{
+        printf("Valores da arvore: "); 
+        imprimir_arv(a->raiz);
+        printf("\n");
+    }
+}
+
+void imprimir_arv(No *raiz){
+    if(raiz != NULL){
+        printf("%d ", raiz->chave);
+        imprimir_arv(raiz->esq);
+        imprimir_arv(raiz->dir);
+    }
+
 }
