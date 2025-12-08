@@ -1,32 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "arvore.h"
+#include "tabelaHash.h"
 
 int main(){
-    Arv *a = criar_arv();
 
-    inserir(a, 5);
-    inserir(a, 2);
-    inserir(a, 8);
-    inserir(a, 7);
-    inserir(a, 3);
-    inserir(a, 9);
-    inserir(a, 1);
-    imprimir(a);
+    int vet[10];
 
-    remover(a, 8);
-    imprimir(a);
+    for(int i=0;i<10;i++){
+        vet[i] = 0;
+    }
 
-    remover(a, 1);
-    imprimir(a);
 
-    remover(a, 5);
-    imprimir(a);
+    inserir(10 , vet , 10);
+    inserir(15 , vet , 10);
+    inserir(326 , vet , 10);
+    inserir(516 , vet , 10);
 
-    remover(a, 2);
-    imprimir(a);
+    exibirTabela(vet , 10);
 
-    buscar(a, 3);
-    buscar(a, 5);
-    buscar(a, 2);
+    buscar(516,  vet , 10);
+
+    remover(150 , vet , 10);
+    printf("\n\n");
+    exibirTabela(vet , 10);
+
+
 }

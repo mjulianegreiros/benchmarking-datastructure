@@ -1,12 +1,13 @@
 #ifndef TABELA_H
 #define TABELA_H
 
-typedef int chave;
 
-int inserir(chave i , chave* vet);
-int buscar(chave i , chave* vet);
-void remover(chave i , int tent, chave* vet);
-void exibirTabela(chave* vet);
+int inserir(int i , int* vet , int tam);
+int buscar(int i , int* vet , int tam);
+void remover(int i , int* vet , int tam);
+void exibirTabela(int* vet , int tam);
 
-int funcHash(chave chave , int tentativa , int tam);
+int funcHash(int chave , int tentativa , int tam);
+
+#endif
 
