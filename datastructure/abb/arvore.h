@@ -1,5 +1,5 @@
-#ifndef ABINARIA_H
-#define ABINARIA_H
+#ifndef ARVORE_H
+#define ARVORE_H
 
 typedef struct no No;
 typedef struct arv Arv;
