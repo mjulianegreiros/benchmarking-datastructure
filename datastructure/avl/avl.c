@@ -11,7 +11,6 @@ struct no{
 
 struct avl{
     No *raiz;
-    int altura;
 };
 
 Avl* criar_avl(){
@@ -22,25 +21,22 @@ Avl* criar_avl(){
     }
 
     avl->raiz = NULL;
-    avl->altura = 0;
 
     return avl;
 }
 
 void inserir(Avl *a, int chave){
     a->raiz = inserir_no(a->raiz, chave);
-    a->altura = altura_no(a->raiz);
 
     printf("Valor %d inserido com sucesso!\n", chave);
-    printf("Altura: %d\n\n", a->altura);
+    printf("Altura: %d\n\n", a->raiz->altura);
 }
 
 void remover(Avl *a, int chave){
     a->raiz = remover_no(a->raiz, chave);
-    a->altura = altura_no(a->raiz);
 
     printf("Valor %d removido com sucesso!\n", chave);
-    printf("Altura da arvore: %d\n\n", a->altura);
+    printf("Altura da arvore: %d\n\n", a->raiz->altura);
 }
 
 No* inserir_no(No *raiz, int chave){
@@ -61,7 +57,6 @@ No* inserir_no(No *raiz, int chave){
         raiz->dir = inserir_no(raiz->dir, chave);
     }
 
-    altura_no(raiz);
     return raiz;
 }
 
@@ -97,7 +92,6 @@ No* remover_no(No *raiz, int chave){
             raiz->dir = remover_no(raiz->dir, sucessor->chave); 
         }
     }
-    altura_no(raiz);
     return raiz;
 }
 
@@ -127,15 +121,58 @@ void buscar_avl(No *raiz, int chave){
     }
 }
 
-int altura_no(No *raiz){
-    if(raiz == NULL){
+int altura_no(No *no){
+    if(no == NULL){
         return 0;
+    }else{
+        return no->altura;
     }
+}
 
-    int alt_esq = altura_no(raiz->esq);
-    int alt_dir = altura_no(raiz->dir);
+int fb_no(No *no){
+    if(no == NULL){
+        return 0;
+    }else{
+        return altura_no(no->esq) - altura_no(no->dir);
+    }
+}
 
-    return 1 + (alt_esq > alt_dir ? alt_esq : alt_dir);
+No* rotacao_esquerda(No *x){
+    No *y = x->dir;
+    No *z = y->esq;
+
+    y->esq = x;
+    x->dir = z;
+
+    x->altura = 1 + max(altura(x->esq), altura(x->dir));
+    y->altura = 1 + max(altura(y->esq), altura(y->dir));
+
+    return y;
+}
+
+
+No* rotacao_direita(No *y){
+    No *x = y->esq;
+    No *z = x->dir;
+
+    x->dir = y;
+    y->esq = z;
+
+    y->altura = 1 + max(altura(y->esq), altura(y->dir));
+    x->altura = 1 + max(altura(x->esq), altura(x->dir));
+
+    return x;
+}
+
+No* rotacao_dupla_esq(No *n){
+    n->esq = rotacao_esquerda(n->esq);
+    return rotacao_direita(n);
+}
+
+
+No* rotacao_dupla_dir(No *n){
+    n->dir = rotacao_direita(n->dir);
+    return rotacao_esquerda(n);
 }
 
 void imprimir(Avl *a){
