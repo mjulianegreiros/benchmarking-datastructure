@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "tabelaHash.h"
 
-int inserir(int i , int* vet , int tam){
+int inserirT(int i , int* vet , int tam){
     int count = 0;
     int posicao;
     do{
@@ -23,7 +23,7 @@ int inserir(int i , int* vet , int tam){
     
 }
 
-int buscar(int i, int* vet , int tam){
+int buscarT(int i, int* vet , int tam){
     int posicao;
     int count=0;
     do{
@@ -42,7 +42,7 @@ int buscar(int i, int* vet , int tam){
     }
     
 }
-void remover(int i , int* vet , int tam){
+void removerT(int i , int* vet , int tam){
     int posicao;
     int count=0;
     do{
