@@ -51,13 +51,13 @@ void removeLista(Lista* lista , int elemento){
 
 }
 void exibirLista(Lista* lista){
-    No *aux;
+    No *aux = lista->inicio;
     if(aux==NULL){
         printf("Lista vazia.");
         return;
     }
     while(aux!=NULL){
         printf("%d " , aux->elemento);
-        aux->prox;
+        aux = aux->prox;
     }
 }

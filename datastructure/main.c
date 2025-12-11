@@ -14,5 +14,5 @@ int main(){
     inserirEND(10 , tabela , 10);
     inserirEND(20 , tabela , 10);
     inserirEND(15 , tabela , 10);
-    //exibirTabelaEND(tabela , 10);
+    exibirTabelaEND(tabela , 10);
 }
