@@ -1,28 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "tabelaHash.h"
+#include "hashEND/lista.h"
+#include "hashEND/tabelaHashEnd.h"
+
 
 int main(){
+    Lista *tabela[10];
 
-    int vet[10];
-
-    for(int i=0;i<10;i++){
-        vet[i] = 0;
+    for (int i = 0; i < 10; i++){
+        tabela[i] = criarLista();
     }
-
-
-    inserir(10 , vet , 10);
-    inserir(15 , vet , 10);
-    inserir(326 , vet , 10);
-    inserir(516 , vet , 10);
-
-    exibirTabela(vet , 10);
-
-    buscar(516,  vet , 10);
-
-    remover(150 , vet , 10);
-    printf("\n\n");
-    exibirTabela(vet , 10);
-
-
+    
+    inserirEND(10 , tabela , 10);
+    inserirEND(20 , tabela , 10);
+    inserirEND(15 , tabela , 10);
+    //exibirTabelaEND(tabela , 10);
 }
