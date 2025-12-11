@@ -27,10 +27,46 @@ int calcTempoRemoveArvore(Arv *a , int elemento){
     return tempo;
 }
 
-int calcTempoInsereAVL();
-int calcTempoBuscaAVL();
-int calcTempoRemoveAVL();
+int calcTempoInsereAVL(){
+    clock_t inicio = clock();
+    // função de inserir na árvore AVL
+    clock_t fim = clock();
+    double tempo = ((double)(fim-inicio))/CLOCKS_PER_SEC;
+    return tempo;
+}
+int calcTempoBuscaAVL(){
+    clock_t inicio = clock();
+    // função de busca na árvore AVL
+    clock_t fim = clock();
+    double tempo = ((double)(fim-inicio))/CLOCKS_PER_SEC;
+    return tempo;
+}
+int calcTempoRemoveAVL(){
+    clock_t inicio = clock();
+    // função de remover na árvore AVL
+    clock_t fim = clock();
+    double tempo = ((double)(fim-inicio))/CLOCKS_PER_SEC;
+    return tempo;
+}
 
-int calcTempoInsereHash();
-int calcTempoBuscaHash();
-int calcTempoRemoveHash();
+int calcTempoInsereHash(){
+    clock_t inicio = clock();
+    // função de inserir na tabela hash
+    clock_t fim = clock();
+    double tempo = ((double)(fim-inicio))/CLOCKS_PER_SEC;
+    return tempo;
+}
+int calcTempoBuscaHash(){
+    clock_t inicio = clock();
+    // função de buscar na tabela hash
+    clock_t fim = clock();
+    double tempo = ((double)(fim-inicio))/CLOCKS_PER_SEC;
+    return tempo;
+}
+int calcTempoRemoveHash(){
+    clock_t inicio = clock();
+    // função de remover na tabela hash
+    clock_t fim = clock();
+    double tempo = ((double)(fim-inicio))/CLOCKS_PER_SEC;
+    return tempo;
+}
