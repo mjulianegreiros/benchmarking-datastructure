@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "tabelaHash.h"
 
-int inserirT(int i , int* vet , int tam){
+int inserirT(int i , int* vet , int tam , int *colisoes){
     int count = 0;
     int posicao;
     do{

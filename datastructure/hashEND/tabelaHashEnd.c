@@ -5,11 +5,11 @@
 
 #define CONST_A 0.6180339887 // número de ouro
 
-void inserirEND(int i , Lista* vet[] , int tam){
+void inserirEND(int i , Lista* vet[] , int tam , int *colisoesEND){
     int posicao = funcHash(i , tam);
     if(vet[posicao]->inicio!=NULL){
-        // contar colisão
-        printf("\ncolision... :(");
+        *colisoesEND++;
+        // printf("\ncolision... :(");
     } 
     insereLista(vet[posicao] , i);
 }

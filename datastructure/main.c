@@ -3,24 +3,20 @@
 #include "hashEND/lista.h"
 #include "hashEND/tabelaHashEnd.h"
 
+#define TAM 50000
+
 
 int main(){
-    Lista *tabela[10];
+    int *colisoes;
+    int *colisoesEND;
+    *colisoes = 0; *colisoesEND = 0;
 
-    for (int i = 0; i < 10; i++){
-        tabela[i] = criarLista();
-    }
-    
-    inserirEND(10 , tabela , 10);
-    inserirEND(20 , tabela , 10);
-    inserirEND(15 , tabela , 10);
-    inserirEND(38 , tabela , 10);
-    inserirEND(35 , tabela , 10);
-    inserirEND(12 , tabela , 10);
-    inserirEND(1 , tabela , 10);
-    inserirEND(5 , tabela , 10);
-    inserirEND(9 , tabela , 10);
-    inserirEND(100 , tabela , 10);
-    inserirEND(107 , tabela , 10);
-    exibirTabelaEND(tabela , 10);
+    int tempoInsereABB=0 , tempoRemoveABB=0 , tempoBuscaABB=0;
+    int tempoInsereAVL=0 , tempoRemoveAVL=0 , tempoBuscaAVL=0;
+    int tempoInsereHash=0 , tempoRemoveHash=0 , tempoBuscaHash=0;
+    int tempoInsereHashEND=0 , tempoRemoveHashEND=0 , tempoBuscaHashEND=0;
+
+
+
+    return 0;
 }
