@@ -29,10 +29,15 @@ void inserir_avl(Avl *a, int chave){
     a->raiz = inserir_no(a->raiz, chave);
 
     printf("Valor %d inserido com sucesso!\n", chave);
-    printf("Altura: %d\n\n", a->raiz->altura);
+    printf("Altura da arvore: %d\n\n", a->raiz->altura);
+    // if(a->raiz->esq != NULL && a->raiz->dir != NULL){
+    //     printf("Altura da subarvore a esquerda: %d\n", a->raiz->esq->altura);
+    //     printf("Altura da subarvore a esquerda: %d\n", a->raiz->dir->altura);
+    // }
 }
 
 void remover_avl(Avl *a, int chave){
+    int qtd_rotacoes = 0;
     a->raiz = remover_no(a->raiz, chave);
 
     printf("Valor %d removido com sucesso!\n", chave);
@@ -46,7 +51,7 @@ No* inserir_no(No *raiz, int chave){
             no->chave = chave;
             no->dir = NULL;
             no->esq = NULL;
-            no->altura = 0;
+            no->altura = 1;
             return no;
         }return NULL;
     }
@@ -59,18 +64,22 @@ No* inserir_no(No *raiz, int chave){
         return raiz;
     }
 
-    raiz->altura = 1 + max(altura_no(raiz->esq), altura_no(raiz->dir));
-
     int fb = fb_no(raiz);
-    if(fb > 1 && chave < raiz->esq->chave){
-        return rotacao_direita(raiz);
-    }else if(fb < -1 && chave > raiz->dir->chave){
-        return rotacao_esquerda(raiz);
-    }else if(fb > 1 && chave > raiz->esq->chave){
-        return rotacao_dupla_dir;
-    }else if(fb < -1 && chave < raiz->dir->chave){
-        return rotacao_dupla_esq;
+    if(fb > 1){
+        if(fb_no(raiz->esq) > 0){
+            raiz = rotacao_direita(raiz);
+        }else{
+            raiz = rotacao_dupla_dir(raiz);
+        }
+    }else if(fb < -1){
+        if(fb_no(raiz->dir) < 0){
+            raiz = rotacao_esquerda(raiz);
+        }else{
+            raiz = rotacao_dupla_esq(raiz);
+        }
     }
+
+    raiz->altura = 1 + max(altura_no(raiz->esq), altura_no(raiz->dir));
 
     return raiz;
 }
@@ -99,25 +108,29 @@ No* remover_no(No *raiz, int chave){
             No *temp = raiz->esq;
             free(raiz);
             return temp;
-        }
-
-        else{
+        }else{
             No *sucessor = menor_dir(raiz->dir);
             raiz->chave = sucessor->chave;
             raiz->dir = remover_no(raiz->dir, sucessor->chave); 
         }
     }
 
-    raiz->altura = 1 + max(altura_no(raiz->esq), altura_no(raiz->dir));
-
     int fb = fb_no(raiz);
     if(fb > 1){
         if(fb_no(raiz->esq) > 0){
             raiz = rotacao_direita(raiz);
         }else{
+            raiz = rotacao_dupla_dir(raiz);
+        }
+    }else if(fb < -1){
+        if(fb_no(raiz->dir) < 0){
+            raiz = rotacao_esquerda(raiz);
+        }else{
             raiz = rotacao_dupla_esq(raiz);
         }
     }
+
+    raiz->altura = 1 + max(altura_no(raiz->esq), altura_no(raiz->dir));
     
     return raiz;
 }
@@ -164,46 +177,41 @@ int fb_no(No *no){
     }
 }
 
-No* rotacao_esquerda(No *x){
-    No *y = x->dir;
-    No *z = y->esq;
+No* rotacao_esquerda(No *no){
+    No *aux = no->dir;
+    no->dir = aux->esq;
+    aux->esq = no;
 
-    y->esq = x;
-    x->dir = z;
+    no->altura = 1 + max(altura_no(no->esq), altura_no(no->dir));
+    aux->altura = 1 + max(altura_no(aux->esq), altura_no(aux->dir));
 
-    x->altura = 1 + max(altura(x->esq), altura(x->dir));
-    y->altura = 1 + max(altura(y->esq), altura(y->dir));
-
-    return y;
+    return aux;
 }
 
+No* rotacao_direita(No *no){
+    No *aux = no->esq;
+    no->esq = aux->dir;
+    aux->dir = no;
 
-No* rotacao_direita(No *y){
-    No *x = y->esq;
-    No *z = x->dir;
+    aux->altura = 1 + max(altura_no(aux->esq), altura_no(aux->dir));
+    no->altura = 1 + max(altura_no(no->esq), altura_no(no->dir));
 
-    x->dir = y;
-    y->esq = z;
-
-    y->altura = 1 + max(altura(y->esq), altura(y->dir));
-    x->altura = 1 + max(altura(x->esq), altura(x->dir));
-
-    return x;
+    return aux;
 }
 
-int max(int x, int y){
-    return x > y ? x : y;
-}
-
-No* rotacao_dupla_esq(No *n){
+No* rotacao_dupla_dir(No *n){
     n->esq = rotacao_esquerda(n->esq);
     return rotacao_direita(n);
 }
 
 
-No* rotacao_dupla_dir(No *n){
+No* rotacao_dupla_esq(No *n){
     n->dir = rotacao_direita(n->dir);
     return rotacao_esquerda(n);
+}
+
+int max(int x, int y){
+    return x > y ? x : y;
 }
 
 void imprimir(Avl *a){

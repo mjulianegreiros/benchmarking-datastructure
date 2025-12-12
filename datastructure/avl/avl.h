@@ -22,6 +22,6 @@ int max(int x, int y);
 void buscar(Avl *a, int chave);
 void buscar_avl(No *raiz, int chave);
 void imprimir(Avl *a);
-void imprimir_arv(No *raiz);
+void imprimir_avl(No *raiz);
 
 #endif
