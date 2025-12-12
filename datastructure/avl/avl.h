@@ -5,8 +5,8 @@ typedef struct no No;
 typedef struct avl Avl;
 
 Avl* criar_avl();
-void inserir(Avl *a, int chave);
-void remover(Avl *a, int chave);
+void inserir_avl(Avl *a, int chave);
+void remover_avl(Avl *a, int chave);
 
 No* inserir_no(No *raiz, int chave);
 No* remover_no(No *raiz, int chave);
@@ -17,6 +17,7 @@ No* rotacao_esquerda(No *x);
 No* rotacao_direita(No *y);
 No* rotacao_dupla_esq(No *n);
 No* rotacao_dupla_dir(No *n);
+int max(int x, int y);
 
 void buscar(Avl *a, int chave);
 void buscar_avl(No *raiz, int chave);

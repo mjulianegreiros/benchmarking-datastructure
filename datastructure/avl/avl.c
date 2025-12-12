@@ -25,14 +25,14 @@ Avl* criar_avl(){
     return avl;
 }
 
-void inserir(Avl *a, int chave){
+void inserir_avl(Avl *a, int chave){
     a->raiz = inserir_no(a->raiz, chave);
 
     printf("Valor %d inserido com sucesso!\n", chave);
     printf("Altura: %d\n\n", a->raiz->altura);
 }
 
-void remover(Avl *a, int chave){
+void remover_avl(Avl *a, int chave){
     a->raiz = remover_no(a->raiz, chave);
 
     printf("Valor %d removido com sucesso!\n", chave);
@@ -55,6 +55,21 @@ No* inserir_no(No *raiz, int chave){
         raiz->esq = inserir_no(raiz->esq, chave);
     }else if(chave > raiz->chave){
         raiz->dir = inserir_no(raiz->dir, chave);
+    }else{
+        return raiz;
+    }
+
+    raiz->altura = 1 + max(altura_no(raiz->esq), altura_no(raiz->dir));
+
+    int fb = fb_no(raiz);
+    if(fb > 1 && chave < raiz->esq->chave){
+        return rotacao_direita(raiz);
+    }else if(fb < -1 && chave > raiz->dir->chave){
+        return rotacao_esquerda(raiz);
+    }else if(fb > 1 && chave > raiz->esq->chave){
+        return rotacao_dupla_dir;
+    }else if(fb < -1 && chave < raiz->dir->chave){
+        return rotacao_dupla_esq;
     }
 
     return raiz;
@@ -92,6 +107,18 @@ No* remover_no(No *raiz, int chave){
             raiz->dir = remover_no(raiz->dir, sucessor->chave); 
         }
     }
+
+    raiz->altura = 1 + max(altura_no(raiz->esq), altura_no(raiz->dir));
+
+    int fb = fb_no(raiz);
+    if(fb > 1){
+        if(fb_no(raiz->esq) > 0){
+            raiz = rotacao_direita(raiz);
+        }else{
+            raiz = rotacao_dupla_esq(raiz);
+        }
+    }
+    
     return raiz;
 }
 
@@ -162,6 +189,10 @@ No* rotacao_direita(No *y){
     x->altura = 1 + max(altura(x->esq), altura(x->dir));
 
     return x;
+}
+
+int max(int x, int y){
+    return x > y ? x : y;
 }
 
 No* rotacao_dupla_esq(No *n){
