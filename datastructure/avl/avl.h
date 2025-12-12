@@ -1,5 +1,5 @@
-#ifndef ARVORE_H
-#define ARVORE_H
+#ifndef AVL_H
+#define AVL_H
 
 typedef struct no No;
 typedef struct avl Avl;

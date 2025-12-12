@@ -23,7 +23,7 @@ void removerEND(int i , Lista* vet[] , int tam){
 }
 void exibirTabelaEND(Lista* vet[] , int tam){
     for(int i=0; i<tam; i++){
-        printf("\npos: %d " , i);
+        printf("\npos: %d -> " , i);
         exibirLista(vet[i]);
     }
 }
