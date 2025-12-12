@@ -13,8 +13,8 @@ No* remover_no(No *raiz, int chave);
 No* menor_dir(No *raiz);
 int altura_no(No *raiz);
 
-void buscar(Arv *a, int chave);
-void buscar_arv(No *raiz, int chave);
+void buscar_arv(Arv *a, int chave);
+void buscar(No *raiz, int chave);
 void imprimir(Arv *a);
 void imprimir_arv(No *raiz);
 

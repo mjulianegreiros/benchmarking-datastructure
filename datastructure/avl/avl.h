@@ -19,8 +19,8 @@ No* rotacao_dupla_esq(No *n);
 No* rotacao_dupla_dir(No *n);
 int max(int x, int y);
 
-void buscar(Avl *a, int chave);
-void buscar_avl(No *raiz, int chave);
+void buscar_avl(Avl *a, int chave);
+void buscar(No *raiz, int chave);
 void imprimir(Avl *a);
 void imprimir_avl(No *raiz);
 

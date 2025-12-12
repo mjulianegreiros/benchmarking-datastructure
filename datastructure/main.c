@@ -6,7 +6,7 @@
 
 
 int main(){
-    Lista *tabela[10];
+    /*Lista *tabela[10];
 
     for (int i = 0; i < 10; i++){
         tabela[i] = criarLista();
@@ -15,7 +15,7 @@ int main(){
     inserirEND(10 , tabela , 10);
     inserirEND(20 , tabela , 10);
     inserirEND(15 , tabela , 10);
-    exibirTabelaEND(tabela , 10);
+    exibirTabelaEND(tabela , 10);*/
 
     Avl *a = criar_avl();
     inserir_avl(a, 3);

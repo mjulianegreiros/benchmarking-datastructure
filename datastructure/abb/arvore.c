@@ -106,20 +106,20 @@ No* menor_dir(No *raiz){
     return raiz;
 }
 
-void buscar(Arv *a, int chave){
-    buscar_arv(a->raiz, chave);
+void buscar_arv(Arv *a, int chave){
+    buscar(a->raiz, chave);
 }
 
-void buscar_arv(No *raiz, int chave){
+void buscar(No *raiz, int chave){
     if(raiz == NULL){
         printf("Valor %d nao encontrado na arvore!\n", chave);
         return;
     }
 
     if(chave > raiz->chave){
-        buscar_arv(raiz->dir, chave);
+        buscar(raiz->dir, chave);
     }else if(chave < raiz->chave){
-        buscar_arv(raiz->esq, chave);
+        buscar(raiz->esq, chave);
     }else{
         printf("%d encontrado na posicao %p!\n", chave, raiz);
     }
