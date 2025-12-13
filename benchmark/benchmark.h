@@ -1,6 +1,12 @@
 #ifndef BENCHMARK_H
 #define BENCHMARK_H
 
+#include "datastructure/abb/arvore.h"
+#include "datastructure/avl/avl.h"
+#include "datastructure/hash/tabelaHash.h"
+#include "datastructure/hashEND/tabelaHashEnd.h"
+#include "benchmark.h"
+
 int calcTempoInsereArvore(Arv *a , int elemento);
 int calcTempoBuscaArvore(Arv *a , int elemento);
 int calcTempoRemoveArvore(Arv *a , int elemento);

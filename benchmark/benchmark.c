@@ -1,11 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "datastructure/abb/arvore.h"
-#include "datastructure/avl/avl.h"
-#include "datastructure/hash/tabelaHash.h"
-#include "datastructure/hashEND/tabelaHashEnd.h"
-#include "benchmark.h"
+
 
 int calcTempoInsereArvore(Arv *a , int elemento){
     clock_t inicio = clock();
