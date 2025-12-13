@@ -26,7 +26,7 @@ int main(){
 
     int vet[TAM];
     for(int i=0;i<TAM;i++){
-        tempoInsereHash += calcTempoInsereHash(num , vet , TAM , &colisoes);
+        tempoInsereHash += calcTempoInsereHash(10 , vet , TAM , &colisoes);
         // num é o valor lido pelo arquivo e vet é o vetor criado
     }
     
