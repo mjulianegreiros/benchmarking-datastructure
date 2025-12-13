@@ -25,8 +25,8 @@ Avl* criar_avl(){
     return avl;
 }
 
-void inserir_avl(Avl *a, int chave){
-    a->raiz = inserir_no(a->raiz, chave);
+void inserir_avl(Avl *a, int chave, int *rotacoes){
+    a->raiz = inserir_no(a->raiz, chave, rotacoes);
 
     printf("Valor %d inserido com sucesso!\n", chave);
     printf("Altura da arvore: %d\n\n", a->raiz->altura);
@@ -36,15 +36,15 @@ void inserir_avl(Avl *a, int chave){
     // }
 }
 
-void remover_avl(Avl *a, int chave){
+void remover_avl(Avl *a, int chave, int *rotacoes){
     int qtd_rotacoes = 0;
-    a->raiz = remover_no(a->raiz, chave);
+    a->raiz = remover_no(a->raiz, chave, rotacoes);
 
     printf("Valor %d removido com sucesso!\n", chave);
     printf("Altura da arvore: %d\n\n", a->raiz->altura);
 }
 
-No* inserir_no(No *raiz, int chave){
+No* inserir_no(No *raiz, int chave, int *rotacoes){
     if(raiz == NULL){
         No *no = (No*) malloc(sizeof(No));
         if(no != NULL){
@@ -57,9 +57,9 @@ No* inserir_no(No *raiz, int chave){
     }
 
     if(chave < raiz->chave){
-        raiz->esq = inserir_no(raiz->esq, chave);
+        raiz->esq = inserir_no(raiz->esq, chave, rotacoes);
     }else if(chave > raiz->chave){
-        raiz->dir = inserir_no(raiz->dir, chave);
+        raiz->dir = inserir_no(raiz->dir, chave, rotacoes);
     }else{
         return raiz;
     }
@@ -67,14 +67,18 @@ No* inserir_no(No *raiz, int chave){
     int fb = fb_no(raiz);
     if(fb > 1){
         if(fb_no(raiz->esq) > 0){
+            (*rotacoes)++;
             raiz = rotacao_direita(raiz);
         }else{
+            (*rotacoes)++;
             raiz = rotacao_dupla_dir(raiz);
         }
     }else if(fb < -1){
         if(fb_no(raiz->dir) < 0){
+            (*rotacoes)++;
             raiz = rotacao_esquerda(raiz);
         }else{
+            (*rotacoes)++;
             raiz = rotacao_dupla_esq(raiz);
         }
     }
@@ -84,16 +88,16 @@ No* inserir_no(No *raiz, int chave){
     return raiz;
 }
 
-No* remover_no(No *raiz, int chave){
+No* remover_no(No *raiz, int chave, int *rotacoes){
     if(raiz == NULL){
         printf("Arvore vazia!\n");
         return NULL;
     }
 
     if(chave > raiz->chave){
-        raiz->dir = remover_no(raiz->dir, chave);
+        raiz->dir = remover_no(raiz->dir, chave, rotacoes);
     }else if(chave < raiz->chave){
-        raiz->esq = remover_no(raiz->esq, chave);
+        raiz->esq = remover_no(raiz->esq, chave, rotacoes);
     }else{
         if(raiz->esq == NULL && raiz->dir == NULL){
             free(raiz);
@@ -111,21 +115,25 @@ No* remover_no(No *raiz, int chave){
         }else{
             No *sucessor = menor_dir(raiz->dir);
             raiz->chave = sucessor->chave;
-            raiz->dir = remover_no(raiz->dir, sucessor->chave); 
+            raiz->dir = remover_no(raiz->dir, sucessor->chave, rotacoes); 
         }
     }
 
     int fb = fb_no(raiz);
     if(fb > 1){
         if(fb_no(raiz->esq) > 0){
+            (*rotacoes)++;
             raiz = rotacao_direita(raiz);
         }else{
+            (*rotacoes)++;
             raiz = rotacao_dupla_dir(raiz);
         }
     }else if(fb < -1){
         if(fb_no(raiz->dir) < 0){
+            (*rotacoes)++;
             raiz = rotacao_esquerda(raiz);
         }else{
+            (*rotacoes)++;
             raiz = rotacao_dupla_esq(raiz);
         }
     }

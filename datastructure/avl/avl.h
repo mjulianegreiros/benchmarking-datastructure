@@ -5,11 +5,11 @@ typedef struct no No;
 typedef struct avl Avl;
 
 Avl* criar_avl();
-void inserir_avl(Avl *a, int chave);
-void remover_avl(Avl *a, int chave);
+void inserir_avl(Avl *a, int chave, int *rotacoes);
+void remover_avl(Avl *a, int chave, int *rotacoes);
 
-No* inserir_no(No *raiz, int chave);
-No* remover_no(No *raiz, int chave);
+No* inserir_no(No *raiz, int chave, int *rotacoes);
+No* remover_no(No *raiz, int chave, int *rotacoes);
 No* menor_dir(No *raiz);
 int altura_no(No *no);
 int fb_no(No *no);
