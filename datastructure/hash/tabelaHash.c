@@ -13,7 +13,7 @@ int inserirT(int i , int* vet , int tam , int *colisoes){
             return 1;
         } else{
             count++;
-            *colisoes++;
+            (*colisoes)++;
         }
     } while(vet[posicao]!=i && count<tam);
 
