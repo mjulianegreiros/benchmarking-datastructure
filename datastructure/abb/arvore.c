@@ -28,7 +28,7 @@ Arv* criar_arv(){
 
 void inserir_abb(Arv *a, int chave){
     a->raiz = inserir_no_abb(a->raiz, chave);
-    a->altura = altura_abb(a->raiz);
+    a->altura = calc_altura_abb(a->raiz);
 
     printf("Valor %d inserido com sucesso!\n", chave);
     printf("Altura: %d\n\n", a->altura);
@@ -36,7 +36,7 @@ void inserir_abb(Arv *a, int chave){
 
 void remover_abb(Arv *a, int chave){
     a->raiz = remover_no_abb(a->raiz, chave);
-    a->altura = altura_abb(a->raiz);
+    a->altura = calc_altura_abb(a->raiz);
 
     printf("Valor %d removido com sucesso!\n", chave);
     printf("Altura da arvore: %d\n\n", a->altura);
@@ -59,7 +59,7 @@ No* inserir_no_abb(No *raiz, int chave){
         raiz->dir = inserir_no_abb(raiz->dir, chave);
     }
 
-    altura_abb(raiz);
+    calc_altura_abb(raiz);
     return raiz;
 }
 
@@ -95,7 +95,7 @@ No* remover_no_abb(No *raiz, int chave){
             raiz->dir = remover_no_abb(raiz->dir, sucessor->chave); 
         }
     }
-    altura_abb(raiz);
+    calc_altura_abb(raiz);
     return raiz;
 }
 
@@ -125,13 +125,13 @@ void buscar_no_abb(No *raiz, int chave){
     }
 }
 
-int altura_abb(No *raiz){
+int calc_altura_abb(No *raiz){
     if(raiz == NULL){
         return 0;
     }
 
-    int alt_esq = altura_abb(raiz->esq);
-    int alt_dir = altura_abb(raiz->dir);
+    int alt_esq = calc_altura_abb(raiz->esq);
+    int alt_dir = calc_altura_abb(raiz->dir);
 
     return 1 + (alt_esq > alt_dir ? alt_esq : alt_dir);
 }
@@ -153,4 +153,8 @@ void imprimir_abb_recursivo(No *raiz){
         imprimir_abb_recursivo(raiz->dir);
     }
 
+}
+
+int altura_abb(Arv *a){
+    return a->altura;
 }

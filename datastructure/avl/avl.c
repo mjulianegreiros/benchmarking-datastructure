@@ -84,7 +84,7 @@ No* inserir_no_avl(No *raiz, int chave, int *rotacoes){
         }
     }
 
-    raiz->altura = 1 + max(altura_no(raiz->esq), altura_no(raiz->dir));
+    raiz->altura = 1 + max(calc_altura_no(raiz->esq), calc_altura_no(raiz->dir));
 
     return raiz;
 }
@@ -139,7 +139,7 @@ No* remover_no_avl(No *raiz, int chave, int *rotacoes){
         }
     }
 
-    raiz->altura = 1 + max(altura_no(raiz->esq), altura_no(raiz->dir));
+    raiz->altura = 1 + max(calc_altura_no(raiz->esq), calc_altura_no(raiz->dir));
     return raiz;
 }
 
@@ -169,7 +169,7 @@ void buscar_no_avl(No *raiz, int chave){
     }
 }
 
-int altura_no(No *no){
+int calc_altura_no(No *no){
     if(no == NULL){
         return 0;
     }else{
@@ -177,11 +177,15 @@ int altura_no(No *no){
     }
 }
 
+int altura_avl(Avl *a){
+    return a->raiz->altura;
+}
+
 int fb_no(No *no){
     if(no == NULL){
         return 0;
     }else{
-        return altura_no(no->esq) - altura_no(no->dir);
+        return calc_altura_no(no->esq) - calc_altura_no(no->dir);
     }
 }
 
@@ -190,8 +194,8 @@ No* rotacao_esquerda(No *no){
     no->dir = aux->esq;
     aux->esq = no;
 
-    no->altura = 1 + max(altura_no(no->esq), altura_no(no->dir));
-    aux->altura = 1 + max(altura_no(aux->esq), altura_no(aux->dir));
+    no->altura = 1 + max(calc_altura_no(no->esq), calc_altura_no(no->dir));
+    aux->altura = 1 + max(calc_altura_no(aux->esq), calc_altura_no(aux->dir));
 
     return aux;
 }
@@ -201,8 +205,8 @@ No* rotacao_direita(No *no){
     no->esq = aux->dir;
     aux->dir = no;
 
-    aux->altura = 1 + max(altura_no(aux->esq), altura_no(aux->dir));
-    no->altura = 1 + max(altura_no(no->esq), altura_no(no->dir));
+    aux->altura = 1 + max(calc_altura_no(aux->esq), calc_altura_no(aux->dir));
+    no->altura = 1 + max(calc_altura_no(no->esq), calc_altura_no(no->dir));
 
     return aux;
 }

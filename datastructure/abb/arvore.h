@@ -11,7 +11,8 @@ void remover_abb(Arv *a, int chave);
 No* inserir_no_abb(No *raiz, int chave);
 No* remover_no_abb(No *raiz, int chave);
 No* menor_dir_abb(No *raiz);
-int altura_abb(No *raiz);
+int altura_abb(Arv *a);
+int calc_altura_abb(No *raiz);
 
 void buscar_abb(Arv *a, int chave);
 void buscar_no_abb(No *raiz, int chave);
