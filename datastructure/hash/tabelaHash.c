@@ -6,13 +6,14 @@ int inserirT(int i , int* vet , int tam , int *colisoes){
     int count = 0;
     int posicao;
     do{
-        posicao = funcHash(i , count , tam);
+        posicao = funcHashAberta(i , count , tam);
         if(vet[posicao]==0){ // fazer função para o vetor iniciar com todas as posições igual a 0
             vet[posicao] = i;
             printf("Elemento inserido.\n");
             return 1;
         } else{
             count++;
+            (*colisoes)++;
         }
     } while(vet[posicao]!=i && count<tam);
 
@@ -27,7 +28,7 @@ int buscarT(int i, int* vet , int tam){
     int posicao;
     int count=0;
     do{
-        posicao = funcHash(i , count , tam);
+        posicao = funcHashAberta(i , count , tam);
         if(vet[posicao]==i){
             printf("Chave encontrada na posição %d.\n" , posicao);
             return 1;
@@ -46,7 +47,7 @@ void removerT(int i , int* vet , int tam){
     int posicao;
     int count=0;
     do{
-        posicao = funcHash(i , count , tam);
+        posicao = funcHashAberta(i , count , tam);
         if(vet[posicao]==i){
             printf("Chave removida da posição %d." , posicao);
             vet[posicao] = -1; //codigo para um elemento deletado
@@ -68,6 +69,6 @@ void exibirTabela(int* vet , int tam){
     }
 }
 
-int funcHash(int chave , int tentativa , int tam){
+int funcHashAberta(int chave , int tentativa , int tam){
     return (chave%tam + 3*tentativa*tentativa)%tam;
 }
