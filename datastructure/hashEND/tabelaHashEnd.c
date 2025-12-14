@@ -6,29 +6,44 @@
 #define CONST_A 0.6180339887 // número de ouro
 
 void inserirEND(int i , Lista* vet[] , int tam , int *colisoesEND){
-    int posicao = funcHash(i , tam);
-    if(vet[posicao]->inicio!=NULL){
-        *colisoesEND++;
+    int posicao = funcHashEnd(i , tam);
+    if(vet[posicao] == NULL){
+        vet[posicao] = criarLista();
+    }else{
+        (*colisoesEND)++;
         // printf("\ncolision... :(");
-    } 
+    }
     insereLista(vet[posicao] , i);
 }
 void buscarEND(int i , Lista* vet[] , int tam){
-    int posicao = funcHash(i , tam);
-    buscaLista(vet[posicao] , i);
+    int posicao = funcHashEnd(i , tam);
+    if(vet[posicao] == NULL){
+        printf("Nao existe lista na posicao %d!\n", posicao);
+        return;
+    }else{
+        buscaLista(vet[posicao] , i);
+    }
 }
 void removerEND(int i , Lista* vet[] , int tam){
-    int posicao = funcHash(i ,tam);
-    removeLista(vet[posicao] , i);
+    int posicao = funcHashEnd(i ,tam);
+    if(vet[posicao] == NULL){
+        printf("Nao existe lista na posicao %d!\n", posicao);
+    }else{
+        removeLista(vet[posicao] , i);
+    }
 }
 void exibirTabelaEND(Lista* vet[] , int tam){
     for(int i=0; i<tam; i++){
         printf("\npos: %d -> " , i);
-        exibirLista(vet[i]);
+        if(vet[i] == NULL){
+            printf("Nao existe lista nesta posicao!\n");
+        }else{
+            exibirLista(vet[i]);
+        }
     }
 }
 
-int funcHash(int chave , int tam){
+int funcHashEnd(int chave , int tam){
     double mult = (double)chave * CONST_A;
     double parteFrac =  mult - floor(mult);
     double posicao = (double)tam * parteFrac;

@@ -7,21 +7,21 @@
 #include "../datastructure/hashEND/tabelaHashEnd.h"
 #include "benchmark.h"
 
-int calcTempoInsereArvore(Arv *a , int elemento);
-int calcTempoBuscaArvore(Arv *a , int elemento);
-int calcTempoRemoveArvore(Arv *a , int elemento);
+double calcTempoInsereArvore(Arv *a , int elemento);
+double calcTempoBuscaArvore(Arv *a , int elemento);
+double calcTempoRemoveArvore(Arv *a , int elemento);
 
-int calcTempoInsereAVL(Avl *a , int chave, int *rotacoes);
-int calcTempoBuscaAVL(Avl *a , int chave);
-int calcTempoRemoveAVL(Avl *a , int chave, int *rotacoes);
+double calcTempoInsereAVL(Avl *a , int chave, int *rotacoes);
+double calcTempoBuscaAVL(Avl *a , int chave);
+double calcTempoRemoveAVL(Avl *a , int chave, int *rotacoes);
 
-int calcTempoInsereHash(int *vet , int chave , int tam , int *colisoes);
-int calcTempoBuscaHash(int *vet , int chave , int tam);
-int calcTempoRemoveHash(int *vet , int chave , int tam);
+double calcTempoInsereHash(int *vet , int chave , int tam , int *colisoes);
+double calcTempoBuscaHash(int *vet , int chave , int tam);
+double calcTempoRemoveHash(int *vet , int chave , int tam);
 
-int calcTempoInsereHashEND(int i , Lista* vet[] , int tam , int *colisoesEND);
-int calcTempoBuscaHashEND(int i , Lista* vet[] , int tam);
-int calcTempoRemoveHashEND(int i , Lista* vet[] , int tam);
+double calcTempoInsereHashEND(int i , Lista* vet[] , int tam , int *colisoesEND);
+double calcTempoBuscaHashEND(int i , Lista* vet[] , int tam);
+double calcTempoRemoveHashEND(int i , Lista* vet[] , int tam);
 
 
 #endif

@@ -26,10 +26,11 @@ Avl* criar_avl(){
 }
 
 void inserir_avl(Avl *a, int chave, int *rotacoes){
-    a->raiz = inserir_no(a->raiz, chave, rotacoes);
+    a->raiz = inserir_no_avl(a->raiz, chave, rotacoes);
 
     printf("Valor %d inserido com sucesso!\n", chave);
     printf("Altura da arvore: %d\n\n", a->raiz->altura);
+    //Teste para ver se a altura dos no's filhos está correta
     // if(a->raiz->esq != NULL && a->raiz->dir != NULL){
     //     printf("Altura da subarvore a esquerda: %d\n", a->raiz->esq->altura);
     //     printf("Altura da subarvore a esquerda: %d\n", a->raiz->dir->altura);
@@ -38,13 +39,13 @@ void inserir_avl(Avl *a, int chave, int *rotacoes){
 
 void remover_avl(Avl *a, int chave, int *rotacoes){
     int qtd_rotacoes = 0;
-    a->raiz = remover_no(a->raiz, chave, rotacoes);
+    a->raiz = remover_no_avl(a->raiz, chave, rotacoes);
 
     printf("Valor %d removido com sucesso!\n", chave);
     printf("Altura da arvore: %d\n\n", a->raiz->altura);
 }
 
-No* inserir_no(No *raiz, int chave, int *rotacoes){
+No* inserir_no_avl(No *raiz, int chave, int *rotacoes){
     if(raiz == NULL){
         No *no = (No*) malloc(sizeof(No));
         if(no != NULL){
@@ -57,9 +58,9 @@ No* inserir_no(No *raiz, int chave, int *rotacoes){
     }
 
     if(chave < raiz->chave){
-        raiz->esq = inserir_no(raiz->esq, chave, rotacoes);
+        raiz->esq = inserir_no_avl(raiz->esq, chave, rotacoes);
     }else if(chave > raiz->chave){
-        raiz->dir = inserir_no(raiz->dir, chave, rotacoes);
+        raiz->dir = inserir_no_avl(raiz->dir, chave, rotacoes);
     }else{
         return raiz;
     }
@@ -88,16 +89,16 @@ No* inserir_no(No *raiz, int chave, int *rotacoes){
     return raiz;
 }
 
-No* remover_no(No *raiz, int chave, int *rotacoes){
+No* remover_no_avl(No *raiz, int chave, int *rotacoes){
     if(raiz == NULL){
         printf("Arvore vazia!\n");
         return NULL;
     }
 
     if(chave > raiz->chave){
-        raiz->dir = remover_no(raiz->dir, chave, rotacoes);
+        raiz->dir = remover_no_avl(raiz->dir, chave, rotacoes);
     }else if(chave < raiz->chave){
-        raiz->esq = remover_no(raiz->esq, chave, rotacoes);
+        raiz->esq = remover_no_avl(raiz->esq, chave, rotacoes);
     }else{
         if(raiz->esq == NULL && raiz->dir == NULL){
             free(raiz);
@@ -113,9 +114,9 @@ No* remover_no(No *raiz, int chave, int *rotacoes){
             free(raiz);
             return temp;
         }else{
-            No *sucessor = menor_dir(raiz->dir);
+            No *sucessor = menor_dir_avl(raiz->dir);
             raiz->chave = sucessor->chave;
-            raiz->dir = remover_no(raiz->dir, sucessor->chave, rotacoes); 
+            raiz->dir = remover_no_avl(raiz->dir, sucessor->chave, rotacoes); 
         }
     }
 
@@ -139,11 +140,10 @@ No* remover_no(No *raiz, int chave, int *rotacoes){
     }
 
     raiz->altura = 1 + max(altura_no(raiz->esq), altura_no(raiz->dir));
-    
     return raiz;
 }
 
-No* menor_dir(No *raiz){
+No* menor_dir_avl(No *raiz){
     while(raiz->esq != NULL){
         raiz = raiz->esq;
     }
@@ -151,19 +151,19 @@ No* menor_dir(No *raiz){
 }
 
 void buscar_avl(Avl *a, int chave){
-    buscar(a->raiz, chave);
+    buscar_no_avl(a->raiz, chave);
 }
 
-void buscar(No *raiz, int chave){
+void buscar_no_avl(No *raiz, int chave){
     if(raiz == NULL){
         printf("Valor %d nao encontrado na arvore!\n", chave);
         return;
     }
 
     if(chave > raiz->chave){
-        buscar(raiz->dir, chave);
+        buscar_no_avl(raiz->dir, chave);
     }else if(chave < raiz->chave){
-        buscar(raiz->esq, chave);
+        buscar_no_avl(raiz->esq, chave);
     }else{
         printf("%d encontrado na posicao %p!\n", chave, raiz);
     }
@@ -222,21 +222,21 @@ int max(int x, int y){
     return x > y ? x : y;
 }
 
-void imprimir(Avl *a){
+void imprimir_avl(Avl *a){
     if(a == NULL){
         printf("Arvore vazia!\n");
     }else{
         printf("Valores da arvore: "); 
-        imprimir_avl(a->raiz);
+        imprimir_avl_recursivo(a->raiz);
         printf("\n");
     }
 }
 
-void imprimir_avl(No *raiz){
+void imprimir_avl_recursivo(No *raiz){
     if(raiz != NULL){
         printf("%d ", raiz->chave);
-        imprimir_avl(raiz->esq);
-        imprimir_avl(raiz->dir);
+        imprimir_avl_recursivo(raiz->esq);
+        imprimir_avl_recursivo(raiz->dir);
     }
 
 }

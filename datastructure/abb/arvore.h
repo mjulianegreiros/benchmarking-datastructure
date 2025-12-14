@@ -5,17 +5,17 @@ typedef struct no No;
 typedef struct arv Arv;
 
 Arv* criar_arv();
-void inserir(Arv *a, int chave);
-void remover(Arv *a, int chave);
+void inserir_abb(Arv *a, int chave);
+void remover_abb(Arv *a, int chave);
 
-No* inserir_no(No *raiz, int chave);
-No* remover_no(No *raiz, int chave);
-No* menor_dir(No *raiz);
-int altura_no(No *raiz);
+No* inserir_no_abb(No *raiz, int chave);
+No* remover_no_abb(No *raiz, int chave);
+No* menor_dir_abb(No *raiz);
+int altura_abb(No *raiz);
 
-void buscar_arv(Arv *a, int chave);
-void buscar(No *raiz, int chave);
-void imprimir(Arv *a);
-void imprimir_arv(No *raiz);
+void buscar_abb(Arv *a, int chave);
+void buscar_no_abb(No *raiz, int chave);
+void imprimir_abb(Arv *a);
+void imprimir_abb_recursivo(No *raiz);
 
 #endif

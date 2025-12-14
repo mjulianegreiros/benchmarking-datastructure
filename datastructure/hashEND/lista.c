@@ -35,16 +35,20 @@ void removeLista(Lista* lista , int elemento){
     if(lista->inicio==NULL){
         printf("Lista vazia.\n");
     }
-    No *ant;
+    No *ant = NULL;
     while(deletar!=NULL && deletar->elemento != elemento){
         ant=deletar;
         deletar = deletar->prox;
     }
     if(deletar==NULL){
-        printf("Valor nãao encontrado\n.");
+        printf("Valor nao encontrado\n.");
         return;
     } else{
-        ant->prox = deletar->prox;
+        if(ant == NULL){
+            lista->inicio = deletar->prox;
+        }else{
+            ant->prox = deletar->prox;
+        }
         free(deletar);
         return;
     }
