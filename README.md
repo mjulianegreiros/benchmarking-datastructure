@@ -142,7 +142,7 @@ double tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
 
 ---
 
-## 📈 Visualização (Mermaid – GitHub)
+## 📈 Visualização
 
 ```mermaid
 graph LR
